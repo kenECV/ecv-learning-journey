@@ -1,0 +1,62 @@
+:root {
+  --red: #FF0000;
+  --h1: 64px;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+#app {
+  padding: 100px 30px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+#app section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#app section .product {
+  display: flex;
+  width: 50%;
+}
+#app section .product .product-thumbnail img {
+  height: auto;
+  width: 100%;
+}
+#app section .product .product-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 50px;
+  width: 100%;
+}
+#app section .product .product-details h1 {
+  font-size: var(--h1);
+}
+#app section .product .product-details h1 sup {
+  font-size: 12px;
+}
+#app section .product .product-details .color-container {
+  display: flex;
+  flex-direction: row;
+}
+#app section .product .product-details .color-container .color-box {
+  height: 40px;
+  width: 40px;
+  border-radius: 50px;
+  margin-right: 20px;
+}
+#app section .product .product-details .btn {
+  padding: 10px 20px;
+  color: white;
+}
+#app section .product .product-details .btnBlue {
+  background-color: blue;
+}
+#app section .product .product-details .disabledButton {
+  background-color: #ececec !important;
+}/*# sourceMappingURL=style.css.map */
