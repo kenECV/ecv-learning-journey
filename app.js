@@ -54,7 +54,7 @@ Vue.component('product',{
                         </li>
                     </ul>   
                     <product-review @review-submitted="addReview"></product-review> <!-- calling addReview methods and passing the data from emit function-->
-                    <product-question ></product-question>
+                    
                 </div>
             </div>
         </section>`,
@@ -168,17 +168,19 @@ Vue.component('product-review',{
     },
     methods: {
         onSubmit() {
-            if (this.name && history.review && this.rating){ // Check if the variables are empty
+            if (this.name && review && this.rating){ // Check if the variables are empty
                 let productReview = { // adding all data to e produtReview variable
                     name: this.name,
                     review: this.review,
                     rating: this.rating
                 }
-                this.$emit('review-submitted', productReview ) // Emiting he event triggered notice along with the productReview variable data to review-submitted
+                console.log("if")
+                this.$emit('review-submitted', productReview ) // Emiting the event triggered notice along with the productReview variable data to review-submitted
                 this.name = null   // Emptying the data
                 this.review = null // Emptying the data
                 this.rating = null // Emptying the data
             }else{
+                console.log("else")
                 this.errors = []   // Emptying the data
                 if( !this.name) this.errors.push("Name required.")     // Add error message
                 if( !this.review) this.errors.push("review required.") // Add error message
@@ -191,7 +193,31 @@ Vue.component('product-review',{
 })
 
 
+Vue.component('product-question', {
+    template: `
+    <form class="review-form" @submit.prevent="onSubmit">
 
+      <p>
+        <label for="question">Do you recommend this product</label>
+        <input type="radio" id="question" v-model="question" placeholder="question">
+      </p>
+      
+      <p>
+        <input type="submit" value="Submit">  
+      </p>    
+    
+    </form>
+    
+    `,
+    data(){
+        return {
+            question: null
+        }
+    },
+    methods:{
+        
+    }
+})
 
 var app = new Vue({
     el: '#app',
