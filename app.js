@@ -210,9 +210,9 @@ Vue.component('product-question', {
       </p>
       <p>
         <p for="question">Do you recommend this product</p>
-        <input type="radio" id="question" v-model="question" placeholder="question" :value="Yes">
+        <input type="radio" id="Yes" v-model="Yes" placeholder="Yes" name="prodQuest" :value="Yes">
         <label for="question">Yes</label>
-        <input type="radio" id="question" v-model="question" placeholder="question" :value="No">
+        <input type="radio" id="No" v-model="No" placeholder="No" name="prodQuest" :value="No">
         <label for="question">No</label>
       </p>
       
@@ -226,6 +226,8 @@ Vue.component('product-question', {
     data(){
         return {
             question: null,
+            Yes: null,
+            No: null,
             errors: []
         }
     },
