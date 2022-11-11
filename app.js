@@ -53,8 +53,13 @@ Vue.component('product',{
                         <p>{{ review.review }}</p>
                         </li>
                     </ul>   
-                    <product-review @review-submitted="addReview"></product-review> <!-- calling addReview methods and passing the data from emit function-->
+
                     
+                    <product-review @review-submitted="addReview"></product-review> <!-- calling addReview methods and passing the data from emit function-->
+
+
+                    <p v-if="!reviews.length"> Recommended Count ({{ question.length }}) </p>  
+                    <product-question @question-sumitted="addQuestion"> </product-question>
                 </div>
             </div>
         </section>`,
@@ -95,6 +100,9 @@ Vue.component('product',{
         },      
         addReview(productReview){ 
             this.reviews.push( productReview ) // push the data to review attribute
+        },
+        addQuestion(productQuestion){
+            this.question.push( productQuestion )
         }
     },
     computed:{
@@ -174,13 +182,11 @@ Vue.component('product-review',{
                     review: this.review,
                     rating: this.rating
                 }
-                console.log("if")
                 this.$emit('review-submitted', productReview ) // Emiting the event triggered notice along with the productReview variable data to review-submitted
                 this.name = null   // Emptying the data
                 this.review = null // Emptying the data
                 this.rating = null // Emptying the data
             }else{
-                console.log("else")
                 this.errors = []   // Emptying the data
                 if( !this.name) this.errors.push("Name required.")     // Add error message
                 if( !this.review) this.errors.push("review required.") // Add error message
@@ -196,10 +202,18 @@ Vue.component('product-review',{
 Vue.component('product-question', {
     template: `
     <form class="review-form" @submit.prevent="onSubmit">
-
+      <p v-if="errors.length">
+        <b>Please correct the following error(s): </b>
+        <ul>
+            <li v-for="error in errors">{{ error }}</li>
+        </ul>
+      </p>
       <p>
-        <label for="question">Do you recommend this product</label>
-        <input type="radio" id="question" v-model="question" placeholder="question">
+        <p for="question">Do you recommend this product</p>
+        <input type="radio" id="question" v-model="question" placeholder="question" :value="Yes">
+        <label for="question">Yes</label>
+        <input type="radio" id="question" v-model="question" placeholder="question" :value="No">
+        <label for="question">No</label>
       </p>
       
       <p>
@@ -211,11 +225,22 @@ Vue.component('product-question', {
     `,
     data(){
         return {
-            question: null
+            question: null,
+            errors: []
         }
     },
     methods:{
-        
+        onSubmit(){
+            if ( this.question ){
+                let productQuestion = {
+                    question: this.question
+                }
+                this.$emit("question-submit", productQuestion)
+            }else {
+                this.error = []
+                if ( !this.question ) this.errors.push('Question is empty')
+            } 
+        }
     }
 })
 
